@@ -1,4 +1,3 @@
-
 const loginPage = document.getElementById("loginPage");
 const mainPage = document.getElementById("mainPage");
 const userName = document.getElementById("userName");
