@@ -1,232 +1,159 @@
-* {
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>농구 모임 프로그램</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- 로그인 화면 -->
+    <section id="loginPage" class="page login-page">
+      <div class="login-card">
+        <h1>🏀 농구 모임 프로그램</h1>
+        <p class="subtitle">농구 모임을 만들고 원하는 경기에 참가해보세요.</p>
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  color: #222;
-}
+        <label for="nameInput">이름</label>
+        <input type="text" id="nameInput" placeholder="이름을 입력하세요" />
 
-.app {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 24px;
-}
+        <label for="idInput">아이디</label>
+        <input type="text" id="idInput" placeholder="아이디를 입력하세요" />
 
-.page {
-  width: 100%;
-}
+        <label for="passwordInput">비밀번호</label>
+        <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요" />
 
-.hidden {
-  display: none;
-}
+        <button id="loginBtn" type="button">로그인</button>
+        <p id="loginMessage" class="message"></p>
+      </div>
+    </section>
 
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    <!-- 메인 화면 -->
+    <section id="mainPage" class="page hidden">
+      <header class="header">
+        <div>
+          <h1>🏀 Basketball Meetup</h1>
+          <p><strong id="userName"></strong>님, 환영합니다!</p>
+        </div>
+        <button id="logoutBtn" type="button" class="outline-btn">로그아웃</button>
+      </header>
 
-.login-card,
-.card {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-}
+      <nav class="tabs">
+        <button type="button" class="tab-btn active" data-tab="createTab">모임 만들기</button>
+        <button type="button" class="tab-btn" data-tab="joinTab">모임 참가하기</button>
+      </nav>
 
-.login-card {
-  width: 100%;
-  max-width: 430px;
-}
+      <main>
+        <!-- 모임 만들기 -->
+        <section id="createTab" class="tab-content">
+          <div class="card">
+            <h2>모임 만들기</h2>
+            <p class="card-desc">농구 모임 정보를 입력하고 등록해보세요.</p>
 
-h1,
-h2 {
-  margin-top: 0;
-}
+            <div class="form-grid">
+              <div>
+                <label for="titleInput">모임 제목 *</label>
+                <input type="text" id="titleInput" placeholder="예: 토요일 5대5 농구" />
+              </div>
 
-label {
-  display: block;
-  margin-top: 14px;
-  margin-bottom: 6px;
-  font-weight: bold;
-}
+              <div>
+                <label for="placeInput">장소 *</label>
+                <input type="text" id="placeInput" placeholder="예: 고려대 농구장" />
+              </div>
 
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d0d5dd;
-  border-radius: 10px;
-  font-size: 15px;
-}
+              <div>
+                <label for="dateInput">날짜 *</label>
+                <input type="date" id="dateInput" />
+              </div>
 
-textarea {
-  min-height: 100px;
-  resize: vertical;
-}
+              <div>
+                <label for="startTimeInput">시작 시간 *</label>
+                <input type="time" id="startTimeInput" />
+              </div>
 
-button {
-  border: none;
-  background: #ff7a00;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  margin-top: 16px;
-}
+              <div>
+                <label for="endTimeInput">종료 시간 *</label>
+                <input type="time" id="endTimeInput" />
+              </div>
 
-button:hover {
-  opacity: 0.9;
-}
+              <div>
+                <label for="capacityInput">모집 인원 *</label>
+                <input type="number" id="capacityInput" min="1" placeholder="예: 10" />
+              </div>
 
-button:disabled {
-  background: #adb5bd;
-  cursor: not-allowed;
-}
+              <div>
+                <label for="modeInput">경기 방식 *</label>
+                <select id="modeInput">
+                  <option value="">선택하세요</option>
+                  <option value="3대3">3대3</option>
+                  <option value="4대4">4대4</option>
+                  <option value="5대5">5대5</option>
+                  <option value="자유 슈팅">자유 슈팅</option>
+                </select>
+              </div>
 
-.outline-btn {
-  background: white;
-  color: #ff7a00;
-  border: 1px solid #ff7a00;
-}
+              <div>
+                <label for="levelInput">실력 수준 *</label>
+                <select id="levelInput">
+                  <option value="">선택하세요</option>
+                  <option value="초급">초급</option>
+                  <option value="중급">중급</option>
+                  <option value="상급">상급</option>
+                </select>
+              </div>
+            </div>
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1f2937;
-  color: white;
-  padding: 24px;
-  border-radius: 18px;
-  margin-bottom: 20px;
-}
+            <label for="descriptionInput">간단한 설명</label>
+            <textarea id="descriptionInput" placeholder="예: 편하게 뛰실 분들 환영합니다. 개인 공 지참해주세요."></textarea>
 
-.header p {
-  margin-bottom: 0;
-}
+            <button id="createMeetupBtn" type="button">모임 등록</button>
+            <p id="createMessage" class="message"></p>
+          </div>
+        </section>
 
-.tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 18px;
-}
+        <!-- 모임 참가하기 -->
+        <section id="joinTab" class="tab-content hidden">
+          <div class="card">
+            <h2>모임 참가하기</h2>
+            <p class="card-desc">조건에 맞는 농구 모임을 검색하고 참가할 수 있습니다.</p>
 
-.tab-btn {
-  background: #e5e7eb;
-  color: #222;
-}
+            <div class="filters">
+              <input type="text" id="searchPlaceInput" placeholder="장소 검색" />
+              <input type="date" id="filterDateInput" />
 
-.tab-btn.active {
-  background: #ff7a00;
-  color: white;
-}
+              <select id="filterModeInput">
+                <option value="">경기 방식 전체</option>
+                <option value="3대3">3대3</option>
+                <option value="4대4">4대4</option>
+                <option value="5대5">5대5</option>
+                <option value="자유 슈팅">자유 슈팅</option>
+              </select>
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-}
+              <select id="filterLevelInput">
+                <option value="">실력 수준 전체</option>
+                <option value="초급">초급</option>
+                <option value="중급">중급</option>
+                <option value="상급">상급</option>
+              </select>
 
-.filters {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-  align-items: end;
-  margin-bottom: 20px;
-}
+              <label class="checkbox">
+                <input type="checkbox" id="openOnlyInput" />
+                모집 중만 보기
+              </label>
+            </div>
 
-.checkbox {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: normal;
-  margin-top: 0;
-}
+            <div class="toolbar">
+              <button id="resetFilterBtn" type="button" class="small-btn">필터 초기화</button>
+              <button id="clearDataBtn" type="button" class="small-btn danger-btn">전체 모임 삭제</button>
+            </div>
 
-.checkbox input {
-  width: auto;
-}
+            <div id="meetupList" class="meetup-list"></div>
+          </div>
+        </section>
+      </main>
+    </section>
+  </div>
 
-.message {
-  font-weight: bold;
-  color: #e03131;
-}
-
-.success {
-  color: #2b8a3e;
-}
-
-.meetup-list {
-  display: grid;
-  gap: 16px;
-}
-
-.meetup-card {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 20px;
-  background: #fafafa;
-}
-
-.meetup-card h3 {
-  margin-top: 0;
-}
-
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 12px 0;
-}
-
-.badge {
-  background: #edf2ff;
-  color: #364fc7;
-  padding: 6px 10px;
-  border-radius: 999px;
-  font-size: 13px;
-}
-
-.closed {
-  background: #ffe3e3;
-  color: #c92a2a;
-}
-
-.open {
-  background: #d3f9d8;
-  color: #2b8a3e;
-}
-
-.detail {
-  color: #495057;
-  line-height: 1.6;
-}
-
-.empty {
-  text-align: center;
-  color: #868e96;
-  padding: 30px;
-}
-
-@media (max-width: 768px) {
-  .form-grid,
-  .filters {
-    grid-template-columns: 1fr;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .tabs {
-    flex-direction: column;
-  }
-}
+  <script src="script.js"></script>
+</body>
+</html>
